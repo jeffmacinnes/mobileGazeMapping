@@ -24,15 +24,44 @@
 	* Clear guidelines for 3rd parties wishing to: Contribute, Report Issues or problems, or Seek Support
 
 
-# To Do
-- Make new repository for project
+# Heres the plan
+
+## repo structure
+
+Heres the structure we'll use for the repository:
+
+```
+├── LICENSE  
+├── README.md  
+├── testData  
+│   ├── frame_timestamps.tsv
+│   ├── gazeData_world.tsv
+│   ├── worldCamera.mp4
+│   └── referenceImage.jpg 
+├── preprocessing
+│   ├── rawData
+│   ├── pl_preprocessing.py
+│   ├── smi_preprocessing.py
+│   └── tobii_preprocessing.py
+└── processData.py
+
+```
+
+* `README.md`: include the all of the relevant overview and usage guidelines in this file
+
+* `testData/`: This directory will contain an abbreviated version of *preprocessed* data that can easily and quickly be used to verify that the `processData.py` script is working properly
+	* Will include `frame_timestamps.tsv`, `gazeData_world.tsv`, `worldCamera.mp4` preprocessed files, as well as `referenceImage.jpg` the reference image that `processData.py` will attempt to find in the image
+
+* `preprocessing/`: This directory will contain preprocessing scripts customized for the 3 different manufacturers of mobile devices: Pupil Labs, SMI, and Tobii. Since we don't have great examples of short, raw data for each of these devices (plus the files would be way too big to include in the repo) we should talk about these scripts as bonuses that we are including (and maybe link to a zip with sample raw data from each manufacturer?)
+
+* `processData.py`: Main script. Given inputs like whats found in `testData` you can fully map the gaze data to the reference image in each frame of the video. 
+
+## Todo:
+
 - Update all code documentation using Numpy Documentation standards and flake8 to confirm PEP8 standards. 
 - Figure out proper dependencies, and make a requirements.txt file
-- Include test data from each manufacturer. Look up how to use this test data in a Travis-CI manner
-- Make sure there's a license file
+- Make abbreviated version of the testData
+- Make sure there's a correct license file
 - Make a thorough README file that includes: overview, installation instructions, example usage, and clear guidelines for 3rd party contributions, issue reporting, or support. 
 
-
-# DemoData
-
-- grabbing 
+n
