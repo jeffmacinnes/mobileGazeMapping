@@ -51,11 +51,19 @@ def findMatches(img1_kp, img1_des, img2_kp, img2_des):
     """ Find the matches between the descriptors for two images
 
     Parameters
-    ==========
+    ----------
+    img1_kp, img2_kp : list
+        list of identified keypoints for each image; returned from
+        detectAndCompute method on the cv2 featureDetect class.
+    img1_des, img2_des : np.ndarray
+        descriptors for each image; returned from detectAndCompute method on
+        the cv2 featureDetect class.
 
-        Inputs:     keypoints, descriptors each image
-        Output:     2D coords of quaifying matches on img1, 2D coords of
-                    qualifying matches on img2
+    Returns
+    -------
+    img1_pts, img2_pts : list or None
+        list of matched keypoints on each image
+
     """
     # Match settings
     min_good_matches = 4
@@ -89,7 +97,20 @@ def mapCoords2D(coords, transform2D):
     """ Map the supplied coords to a new coordinate system using the supplied
     transformation matrix
 
+    Parameters
+    ----------
+    coords : tuple
+        (x,y) coordinates
+    transform2D : np.ndarray
+        2D transformation matrix; produce by cv2.findHomography
+
+    Returns
+    -------
+    float, float
+        mapped coordinates after applying transform2D
+
     """
+
     coords = np.array(coords).reshape(-1, 1, 2)
     mappedCoords = cv2.perspectiveTransform(coords, transform2D)
     mappedCoords = np.round(mappedCoords.ravel())
@@ -98,7 +119,26 @@ def mapCoords2D(coords, transform2D):
 
 
 def projectImage2D(origFrame, transform2D, newImage):
-    """ Warp the new image according to the supplied transformation matrix
+    """ Project newImage into the origFrame
+
+    Warp newImage according to the supplied transformation matrix, then
+    project (insert) into the original frame.
+
+    Parameters
+    ----------
+    origFrame : np.ndarray
+        The original image you want to insert the newImage into
+    transform2D : np.ndarray
+        2D transformation matrix; produce by cv2.findHomography
+    newImage : np.ndarray
+        The image you would like to warp and project into the origFrame
+
+
+    Returns
+    -------
+    newFrame : np.ndarray
+        New frame (same dimensions as origFrame) with the warped and projected
+        newImage written into it
 
     """
     # warp the new image to the video frame
@@ -128,14 +168,47 @@ def projectImage2D(origFrame, transform2D, newImage):
 
 
 def processRecording(gazeData=None, worldCameraVid=None, referenceImage=None, outputDir=None):
-    """
-    Read preprocessed data from preprocessedDir, save all output in outputDir
+    """ Map the gaze across all frames of mobile eye-tracking session
 
-    On each frame of worldCamera.mp4, look for the matches with the specified
-    referenceImage
+    This method will iterate over every frame of the supplied video recording.
+    On each frame, it will look for the matches with the specified
+    referenceImage, create a linear transformation matrix, and map the gaze
+    data from the world camera coordinate system to the reference image
+    coordinate system.
 
-    If sufficient matches found, map the gaze data from the world camera
-    video coordinate system to the reference image coordinate system
+    This parent method will take care of setting up all of the inputs, and at
+    the end, writing all of the output files
+
+    Parameters
+    ----------
+    gazeData : string
+        Path to the gazeData file. This file expected to be a .csv/.tsv file
+        with columns for:
+            timestamp - timestamp (ms) corresponding to each sample
+            frame_idx - index (0-based) of the worldCameraVid frame
+                        corresponding to each sample
+            confidence - confidence of the validity of each sample (0-1)
+            norm_pos_x - normalized x position of gaze location (0-1).
+                         Normalized with respect to width of worldCameraVid
+            norm_pos_y - normalized y position of gaze location (0-1).
+                         Normalized with respect to height of worldCameraVid
+    worldCameraVid : string
+        Path to the video recording from the world camera (.mp4)
+    refernceImage : string
+        Path to the 2D reference image
+
+    Output files
+    ------------
+    world_gaze.mp4 : video
+        world video with original gaze points overlaid
+    ref_gaze.mp4 : video
+         ref image with mapped gaze points overlaid
+    ref2world_mapping.mp4 : video
+        world video with reference image projected and inserted into it.
+    gazeData_mapped.tsv :  data file
+        gazeData represented in both coordinate systems, the world and
+        reference image
+
     """
     # Create output directory
     if not os.path.isdir(outputDir):
@@ -214,10 +287,6 @@ def processRecording(gazeData=None, worldCameraVid=None, referenceImage=None, ou
 
     ### Loop over video frames ###############################################
     framesToUse = np.arange(0, totalFrames, 1)
-    if totalFrames > framesToUse.max():
-        # make sure no attempts on nonexistent frames
-        framesToUse = framesToUse[framesToUse <= totalFrames]
-
     frameProcessing_startTime = time.time()
     frameCounter = 0
 
@@ -250,7 +319,6 @@ def processRecording(gazeData=None, worldCameraVid=None, referenceImage=None, ou
                 # loop over all gaze data for this frame, translate to different coordinate systems
                 for i, gazeRow in thisFrame_gazeData_world.iterrows():
                     ts = gazeRow['timestamp']
-                    frameNum = frameCounter
                     conf = gazeRow['confidence']
 
                     # translate normalized gaze data to world pixel coords
@@ -262,7 +330,7 @@ def processRecording(gazeData=None, worldCameraVid=None, referenceImage=None, ou
 
                     # create dict for this row
                     thisRow_df = pd.DataFrame({'gaze_ts': ts,
-                                               'worldFrame': frameNum,
+                                               'worldFrame': frameCounter,
                                                'confidence': conf,
                                                'world_gazeX': world_gazeX,
                                                'world_gazeY': world_gazeY,
@@ -335,11 +403,29 @@ def processRecording(gazeData=None, worldCameraVid=None, referenceImage=None, ou
     logger.info('Avg time/frame: %s seconds' % (frameProcessing_time / framesToUse.shape[0]))
 
 
-def processFrame(frame, frameNumber, ref_kp, ref_des, featureDetect):
-    """
-    Process a single frame from the world camera
-        - try to find match between frame and reference image
-        - if success, return the mapping
+def processFrame(frame, frameIdx, ref_kp, ref_des, featureDetect):
+    """ Process single frame from the world camera to determine mapping to
+    ref image
+
+    Parameters
+    ---------
+    frame : np.ndarray
+        frame from world camera video
+    frameIdx : int
+        frame index (0-based)
+    ref_kp : list
+        identified keypoints on the reference image
+    ref_des : np.ndarray
+        descriptors for the reference image keypoints
+    featureDetect : object
+        instance of cv2 SIFT class
+
+    Returns
+    -------
+    fr : dict
+        dictionary with entries storing all of the relevant output for this
+        particular frame
+
     """
     logger = logging.getLogger()
 
@@ -356,7 +442,7 @@ def processFrame(frame, frameNumber, ref_kp, ref_des, featureDetect):
     # try to match the frame and the reference image
     try:
         frame_kp, frame_des = featureDetect.detectAndCompute(frame_gray, None)
-        logger.info('found {} features on frame {}'.format(len(frame_kp), frameNumber))
+        logger.info('found {} features on frame {}'.format(len(frame_kp), frameIdx))
 
         if len(frame_kp) < 2:
             ref_matchPts = None
@@ -372,14 +458,14 @@ def processFrame(frame, frameNumber, ref_kp, ref_des, featureDetect):
 
             # if sufficient number of matches....
             if numMatches > 10:
-                logger.info('found {} matches on frame {}'.format(numMatches, frameNumber))
+                logger.info('found {} matches on frame {}'.format(numMatches, frameIdx))
                 sufficientMatches = True
             else:
-                logger.info('Insufficient matches ({}} matches) on frame {}'.format(numMatches, frameNumber))
+                logger.info('Insufficient matches ({}} matches) on frame {}'.format(numMatches, frameIdx))
                 sufficientMatches = False
 
         except:
-            print('no matches found on frame {}'.format(frameNumber))
+            print('no matches found on frame {}'.format(frameIdx))
             sufficientMatches = False
             pass
 
