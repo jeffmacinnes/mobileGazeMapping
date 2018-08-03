@@ -34,23 +34,22 @@ Heres the structure we'll use for the repository:
 ├── LICENSE  
 ├── README.md  
 ├── testData  
-│   ├── frame_timestamps.tsv
 │   ├── gazeData_world.tsv
 │   ├── worldCamera.mp4
-│   └── referenceImage.jpg 
+│   └── testData_referenceImage.jpg 
 ├── preprocessing
 │   ├── rawData
 │   ├── pl_preprocessing.py
 │   ├── smi_preprocessing.py
 │   └── tobii_preprocessing.py
-└── processData.py
+└── mapGaze.py
 
 ```
 
 * `README.md`: include the all of the relevant overview and usage guidelines in this file
 
-* `testData/`: This directory will contain an abbreviated version of *preprocessed* data that can easily and quickly be used to verify that the `processData.py` script is working properly
-	* Will include `frame_timestamps.tsv`, `gazeData_world.tsv`, `worldCamera.mp4` preprocessed files, as well as `referenceImage.jpg` the reference image that `processData.py` will attempt to find in the image
+* `testData/`: This directory will contain an abbreviated version of *preprocessed* data that can easily and quickly be used to verify that the `mapGaze.py` script is working properly
+	* Will include `gazeData_world.tsv`, `worldCamera.mp4` preprocessed files, as well as `referenceImage.jpg` the reference image that `mapGaze.py` will attempt to find in the image
 
 * `preprocessing/`: This directory will contain preprocessing scripts customized for the 3 different manufacturers of mobile devices: Pupil Labs, SMI, and Tobii. Since we don't have great examples of short, raw data for each of these devices (plus the files would be way too big to include in the repo) we should talk about these scripts as bonuses that we are including (and maybe link to a zip with sample raw data from each manufacturer?)
 
@@ -58,10 +57,9 @@ Heres the structure we'll use for the repository:
 
 ## Todo:
 
-- Update all code documentation using Numpy Documentation standards and flake8 to confirm PEP8 standards. 
-- Figure out proper dependencies, and make a requirements.txt file
-- Make abbreviated version of the testData
-- Make sure there's a correct license file
-- Make a thorough README file that includes: overview, installation instructions, example usage, and clear guidelines for 3rd party contributions, issue reporting, or support. 
+X Update all code documentation using Numpy Documentation standards and flake8 to confirm PEP8 standards. 
+X Figure out proper dependencies, and make a requirements.txt file
+X Make abbreviated version of the testData
+X Make sure there's a correct license file (taken from https://github.com/robwhess/opensift)
+- Make a thorough README file that includes: overview, installation instructions, installation of OpenCV help, testing, example usage, and clear guidelines for 3rd party contributions, issue reporting, or support, references 
 
-n
