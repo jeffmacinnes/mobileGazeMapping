@@ -100,7 +100,7 @@ To test your installation, we have included preprocessed files from a brief 2-se
 
 To test, navigate to the directory for this repository, and type:
 
-> python testData/gazeData_world.tsv testData/worldCamera.mp4 testData/referenceImage.jpg
+> python mapGaze.py testData/gazeData_world.tsv testData/worldCamera.mp4 testData/referenceImage.jpg
 
 It should take ~1min to complete. Afterwards you will find all of the output files saved in `testData/mappedGazeOutput`:
 
