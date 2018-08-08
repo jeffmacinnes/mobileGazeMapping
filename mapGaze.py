@@ -167,7 +167,7 @@ def projectImage2D(origFrame, transform2D, newImage):
     return newFrame
 
 
-def processRecording(gazeData=None, worldCameraVid=None, referenceImage=None, outputDir=None):
+def processRecording(gazeData=None, worldCameraVid=None, referenceImage=None, outputDir=None, nFrames=None):
     """ Map the gaze across all frames of mobile eye-tracking session
 
     This method will iterate over every frame of the supplied video recording.
@@ -194,8 +194,14 @@ def processRecording(gazeData=None, worldCameraVid=None, referenceImage=None, ou
                          Normalized with respect to height of worldCameraVid
     worldCameraVid : string
         Path to the video recording from the world camera (.mp4)
-    refernceImage : string
+    referenceImage : string
         Path to the 2D reference image
+    outputDir : string
+        Path to output directory where data will be saved
+    nFrames : int, optional
+        If specified, will only process given number of frames (default of
+        None means it will process ALL frames in the video). Useful for testing
+        on abbreviated number of frames
 
     Output files
     ------------
@@ -286,7 +292,10 @@ def processRecording(gazeData=None, worldCameraVid=None, referenceImage=None, ou
     logger.info('Reference Image: found {} keypoints'.format(len(refImg_kp)))
 
     ### Loop over video frames ###############################################
-    framesToUse = np.arange(0, totalFrames, 1)
+    if nFrames and nFrames < totalFrames:
+        framesToUse = np.arange(0, nFrames, 1)
+    else:
+        framesToUse = np.arange(0, totalFrames, 1)
     frameProcessing_startTime = time.time()
     frameCounter = 0
 
