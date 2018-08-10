@@ -1,0 +1,11 @@
+.DS_Store
+
+*.pyc
+__pycache__/
+.pytest_cache
+
+# project files/dirs
+prepNotes.md
+preprocessing/rawData
+sandbox/
+testData/mappedGazeOutput
