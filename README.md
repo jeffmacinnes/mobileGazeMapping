@@ -120,3 +120,6 @@ It should take ~1min to complete. Afterwards you will find all of the output fil
     ├── referenceImage.jpg
     └── worldCamera.mp44
 ```
+
+### referenceImage.jpg copyright:
+Jeff Sonhouse, *Decompositioning*, 2010. Mixed media on canvas. 82 x 76 1/4 inches (208.3 x 193.7 cm). Collection of the Nasher Museum. Museum purchase, 2010.15.1. © Jeff Sonhouse.
