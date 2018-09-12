@@ -17,6 +17,8 @@ This toolkit addresses this challenge by automatically identifying the target st
 
 ![](figures/overviewFig.png)
 
+For more information about this method and examples of how it can be used to facilitate subsequent analysis, see [Dynamic Gaze Mapping](https://jeffmacinnes.com/research/gazeMapping/gazeMapping.php)
+
 # Usage Guide
 
 ## Relevant terms:
