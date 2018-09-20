@@ -23,6 +23,7 @@ affiliations:
  - name: University of Southern California, Los Angeles, CA
    index: 3
  - name: Wharton Neuroscience Initiative, University of Pennsylvania, Philadelphia, PA
+   index: 4
 
 date: 3 August 2018
 bibliography: paper.bib
