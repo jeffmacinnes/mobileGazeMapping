@@ -14,7 +14,7 @@ authors:
   - name: John Pearson
     affiliation: 2
   - name: Elizabeth N. Johnson
-    affiliation: "2,4"
+    affiliation: "2, 4"
 affiliations:
  - name: Institute for Learning and Brain Sciences, University of Washington, Seattle, WA
    index: 1
