@@ -115,12 +115,12 @@ It should take ~1min to complete. Afterwards you will find all of the output fil
     ├── mappedGazeOuput
     │   ├── gazeData_mapped.tsv
     │   ├── mapGazeLog.log
-    │   ├── ref2world_mapping.m4v
-    │   ├── ref_gaze.m4v
+    │   ├── ref2world_mapping.mp4
+    │   ├── ref_gaze.mp4
     │   ├── testData_referenceImage.jpg
-    │   └── world_gaze.m4v
+    │   └── world_gaze.mp4
     ├── referenceImage.jpg
-    └── worldCamera.mp44
+    └── worldCamera.mp4
 ```
 
 ### referenceImage.jpg copyright:
