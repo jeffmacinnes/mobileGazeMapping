@@ -131,7 +131,7 @@ def correlate_data(data,timestamps):
 
 	this takes a data list and a timestamps list and makes a new list
 	with the length of the number of timestamps.
-	Each slot contains a list that will have 0, 1 or more assosiated data points.
+	Each slot contains a list that will have 0, 1 or more associated data points.
 
 	Finally we add an index field to the datum with the associated index
 	'''
