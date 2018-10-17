@@ -79,7 +79,7 @@ def copyTobiiRecording(input_dir, output_root):
 		os.makedirs(join(output_root, date_dir, time_dir))
 	outputDir = join(output_root, date_dir, time_dir)
 
-	# Copy relevent files to new directory
+	# Copy relevant files to new directory
 	for f in ['livedata.json.gz', 'fullstream.mp4']:
 		shutil.copyfile(join(input_dir, f), join(outputDir, f))
 
@@ -197,7 +197,7 @@ def json_to_df(json_file):
 			entry = json.loads(line)
 
 			### a number of different dictKeys are possible, respond accordingly
-			if 'vts' in entry.keys(): # "vts" key signfies a video timestamp (first frame, first keyframe, and ~1/min afterwards)
+			if 'vts' in entry.keys(): # "vts" key signifies a video timestamp (first frame, first keyframe, and ~1/min afterwards)
 				vts_sync[entry['ts']] = entry['vts']
 				continue
 
