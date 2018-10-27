@@ -51,12 +51,12 @@ def test_mappedGaze():
     outputData = np.genfromtxt(join(testDataDir, 'test_output/gazeData_mapped.tsv'), skip_header=1)
 
     # confirm worldGaze data matches expectations
-    np.testing.assert_almost_equal(outputData[:,3], worldGazeX, decimal=2)
-    np.testing.assert_almost_equal(outputData[:,4], worldGazeY, decimal=2)
+    np.testing.assert_allclose(outputData[:,3], worldGazeX, 0, 1)
+    np.testing.assert_allclose(outputData[:,4], worldGazeY, 0, 1)
 
     # confirm reference gaze data matches expectations
-    np.testing.assert_almost_equal(outputData[:,5], refGazeX, decimal=2)
-    np.testing.assert_almost_equal(outputData[:,6], refGazeY, decimal=2)
+    np.testing.assert_allclose(outputData[:,5], refGazeX, 0, 1)
+    np.testing.assert_allclose(outputData[:,6], refGazeY, 0, 1)
 
 def test_outputVids():
     """ confirm that the output vids are valid vid files with the appropriate dims """
