@@ -24,7 +24,7 @@ def test_mapGaze():
                              worldCameraVid=worldCameraVid,
                              referenceImage=referenceImage,
                              outputDir=outputDir,
-                             nFrames=5)
+                             nFrames=nFrames)
 
     # remove the test output dir
     shutil.rmtree(outputDir)
