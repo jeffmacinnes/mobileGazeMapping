@@ -15,7 +15,7 @@ Mobile eye-trackers allow for measures like gaze position to be recorded under n
 
 This toolkit addresses this challenge by automatically identifying the target stimulus on every frame of the recording and mapping the gaze positions to a fixed representation of the stimulus. At the end, gaze positions across the entire recording are expressed in pixel coordinates of the fixed 2D target stimulus.
 
-![](figures/overviewFig.png)
+![](docs/figures/overviewFig.png)
 
 For more information about this method and examples of how it can be used to facilitate subsequent analysis, see [Dynamic Gaze Mapping](https://jeffmacinnes.com/research/gazeMapping/gazeMapping.php)
 
@@ -100,17 +100,17 @@ The output files include:
 
 
 # Test Data
-To test your installation, we have included preprocessed files from a brief 2-second recording, which can be found in the `testData` directory.
+To test your installation, we have included preprocessed files from a brief 2-second recording, which can be found in the `tests` directory.
 
 To test, navigate to the directory for this repository, and type:
 
-> python mapGaze.py testData/gazeData_world.tsv testData/worldCamera.mp4 testData/referenceImage.jpg
+> python mapGaze.py tests/gazeData_world.tsv tests/worldCamera.mp4 tests/referenceImage.jpg
 
-It should take ~1min to complete. Afterwards you will find all of the output files saved in `testData/mappedGazeOutput`:
+It should take ~1min to complete. Afterwards you will find all of the output files saved in `tests/mappedGazeOutput`:
 
 ```
 .
-└── testData
+└── tests
     ├── gazeData_world.tsv
     ├── mappedGazeOuput
     │   ├── gazeData_mapped.tsv
