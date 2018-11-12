@@ -2,6 +2,11 @@
 
 Important changes and updates to the code will be documented in this file. This packages uses [https://calver.org/](https://calver.org/) versioning
 
+## [2018.11.12]
+### Fixed
+- fixed typos in `preprocessing/pl_preprocessing.py`
+- fixed typos in `preprocessing/tobii_preprocessing.py`
+
 ## [2018.10.02]
 ### Changed
 - `tests/test_mapGaze.py` modified to run more thorough tests and confirmation on output values
