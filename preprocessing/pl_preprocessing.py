@@ -87,79 +87,79 @@ def preprocessData(inputDir, output_root):
 
 
 def formatGazeData(inputDir):
-    """
-    - load the pupil_data and timestamps
-    - get the "gaze" fields from pupil data (i.e. the gaze lcoation w/r/t world camera)
-    - sync gaze data with the world_timestamps array
-    """
+	"""
+	- load the pupil_data and timestamps
+	- get the "gaze" fields from pupil data (i.e. the gaze lcoation w/r/t world camera)
+	- sync gaze data with the world_timestamps array
+	"""
 
-    # load pupil data
-    pupil_data_path = join(inputDir, 'pupil_data')
-    with open(pupil_data_path, 'rb') as fh:
-        try:
-            gc.disable()
-            pupil_data = msgpack.unpack(fh, encoding='utf-8')
-        except Exception as e:
-            print(e)
-        finally:
-            gc.enable()
-    gaze_list = pupil_data['gaze_positions']   # gaze posiiton (world camera)
+	# load pupil data
+	pupil_data_path = join(inputDir, 'pupil_data')
+	with open(pupil_data_path, 'rb') as fh:
+		try:
+			gc.disable()
+			pupil_data = msgpack.unpack(fh, encoding='utf-8')
+		except Exception as e:
+			print(e)
+		finally:
+			gc.enable()
+	gaze_list = pupil_data['gaze_positions']   # gaze posiiton (world camera)
 
-    # load timestamps
-    timestamps_path = join(inputDir, 'world_timestamps.npy')
-    frame_timestamps = np.load(timestamps_path)
+	# load timestamps
+	timestamps_path = join(inputDir, 'world_timestamps.npy')
+	frame_timestamps = np.load(timestamps_path)
 
-    # align gaze with world camera timestamps
-    gaze_by_frame = correlate_data(gaze_list, frame_timestamps)
+	# align gaze with world camera timestamps
+	gaze_by_frame = correlate_data(gaze_list, frame_timestamps)
 
-    # make frame_timestamps relative to the first data timestamp
-    start_timeStamp = gaze_by_frame[0][0]['timestamp']
-    frame_timestamps = (frame_timestamps - start_timeStamp) * 1000 # convert to ms
+	# make frame_timestamps relative to the first data timestamp
+	start_timeStamp = gaze_by_frame[0][0]['timestamp']
+	frame_timestamps = (frame_timestamps - start_timeStamp) * 1000 # convert to ms
 
-    return gaze_by_frame, frame_timestamps
+	return gaze_by_frame, frame_timestamps
 
 
-def correlate_data(data, timestamps):
-    """
-    data:  list of data :
-        each datum is a dict with at least:
-            timestamp: float
+def correlate_data(data,timestamps):
+	'''
+	data:  list of data :
+		each datum is a dict with at least:
+			timestamp: float
 
-    timestamps: timestamps list to correlate  data to
+	timestamps: timestamps list to correlate  data to
 
-    this takes a data list and a timestamps list and makes a new list
-    with the length of the number of timestamps.
-    Each slot contains a list that will have 0, 1 or more assosiated data points.
+	this takes a data list and a timestamps list and makes a new list
+	with the length of the number of timestamps.
+	Each slot contains a list that will have 0, 1 or more associated data points.
 
-    Finally we add an index field to the datum with the associated index
-    """
-    timestamps = list(timestamps)
-    data_by_frame = [[] for i in timestamps]
+	Finally we add an index field to the datum with the associated index
+	'''
+	timestamps = list(timestamps)
+	data_by_frame = [[] for i in timestamps]
 
-    frame_idx = 0
-    data_index = 0
+	frame_idx = 0
+	data_index = 0
 
-    data.sort(key=lambda d: d['timestamp'])
+	data.sort(key=lambda d: d['timestamp'])
 
-    while True:
-        try:
-            datum = data[data_index]
-            # we can take the midpoint between two frames in time: More appropriate for SW timestamps
-            ts = (timestamps[frame_idx]+timestamps[frame_idx+1]) / 2.
-            # or the time of the next frame: More appropriate for Sart Of Exposure Timestamps (HW timestamps).
-            # ts = timestamps[frame_idx+1]
-        except IndexError:
-            # we might loose a data point at the end but we dont care
-            break
+	while True:
+		try:
+			datum = data[data_index]
+			# we can take the midpoint between two frames in time: More appropriate for SW timestamps
+			ts = ( timestamps[frame_idx]+timestamps[frame_idx+1] ) / 2.
+			# or the time of the next frame: More appropriate for Sart Of Exposure Timestamps (HW timestamps).
+			# ts = timestamps[frame_idx+1]
+		except IndexError:
+			# we might loose a data point at the end but we dont care
+			break
 
-        if datum['timestamp'] <= ts:
-            datum['frame_idx'] = frame_idx
-            data_by_frame[frame_idx].append(datum)
-            data_index +=1
-        else:
-            frame_idx+=1
+		if datum['timestamp'] <= ts:
+			datum['frame_idx'] = frame_idx
+			data_by_frame[frame_idx].append(datum)
+			data_index +=1
+		else:
+			frame_idx+=1
 
-    return data_by_frame
+	return data_by_frame
 
 
 if __name__ == '__main__':
