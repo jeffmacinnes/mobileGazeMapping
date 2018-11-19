@@ -2,6 +2,11 @@
 
 Important changes and updates to the code will be documented in this file. This packages uses [https://calver.org/](https://calver.org/) versioning
 
+## [2018.11.19]
+### Fixed
+- fixed incorrect file extensions in README and mapGaze.py docs (`mp4` where should have been `m4v`)
+- added DOIs to bibTex references in  `docs/paper/paper.bib`
+
 ## [2018.11.12]
 ### Fixed
 - fixed typos in `preprocessing/pl_preprocessing.py`

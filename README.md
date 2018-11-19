@@ -92,9 +92,9 @@ Unless you explicitly supply your own output directory, all of the output will b
 
 The output files include:    
 
-* `world_gaze.mp4`: world camera video with original gaze points overlaid  
-* `ref_gaze.mp4`: reference image video with mapped gaze points overlaid
-* `ref2world_mapping.mp4`: world camera video with reference image projected and inserted into each frame.
+* `world_gaze.m4v`: world camera video with original gaze points overlaid  
+* `ref_gaze.m4v`: reference image video with mapped gaze points overlaid
+* `ref2world_mapping.m4v`: world camera video with reference image projected and inserted into each frame.
 * `gazeData_mapped.tsv`: tab-separated data file with gaze data represented in both coordinate systems - the world camera video, and the reference image
 * `mapGazeLog.log`: Log file
 
@@ -115,10 +115,10 @@ It should take ~1min to complete. Afterwards you will find all of the output fil
     ├── mappedGazeOuput
     │   ├── gazeData_mapped.tsv
     │   ├── mapGazeLog.log
-    │   ├── ref2world_mapping.mp4
-    │   ├── ref_gaze.mp4
+    │   ├── ref2world_mapping.m4v
+    │   ├── ref_gaze.m4v
     │   ├── testData_referenceImage.jpg
-    │   └── world_gaze.mp4
+    │   └── world_gaze.m4v
     ├── referenceImage.jpg
     └── worldCamera.mp4
 ```

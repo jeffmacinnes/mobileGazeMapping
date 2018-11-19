@@ -35,7 +35,7 @@ Mobile eye-trackers allow for measures like gaze position to be recorded under n
 
 This toolkit addresses this challenge by automatically identifying the target stimulus on every frame of the recording and mapping the gaze positions to a fixed representation of the stimulus. 
 
-It does this by identifying matching keypoints between the reference stimulus and each frame of the video. Keypoints are obtained using the Scale Invariant Feature Transform algorithm (SIFT)[@Lowe04distinctiveimage], and matches between keypoints are found using the Fast Approximate Nearest Neighbor search algorithm (FLANN)[@muja_flann_2009], both implemented in OpenCV[@opencv_library]. (We note that while use of the SIFT algorithm is free for non-commercial, research, and educational purposes, all commercial applications require a purchased license.) 
+It does this by identifying matching keypoints between the reference stimulus and each frame of the video. Keypoints are obtained using the Scale Invariant Feature Transform algorithm (SIFT)[@Lowe2004], and matches between keypoints are found using the Fast Approximate Nearest Neighbor search algorithm (FLANN)[@visapp09], both implemented in OpenCV[@opencv_library]. (We note that while use of the SIFT algorithm is free for non-commercial, research, and educational purposes, all commercial applications require a purchased license.) 
 
 Once matching keypoints have been identified, we determine the 2D linear transformation that maps keypoints from the video frame to key points on the reference image. Once determined, this same transformation is applied to the gaze position sample corresponding to the given video frame, resulting in gaze position being expressed in terms of the pixel coordinate system of the reference image. 
 

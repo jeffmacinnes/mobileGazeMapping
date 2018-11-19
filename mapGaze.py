@@ -18,9 +18,9 @@ the recorded gaze points to the 2D reference stimulus.
 
 With the help of computers vision tools, this script automates this process
 and yeilds output data files that facilitate subsequent analysis, specifically:
-    - world_gaze.mp4:           world video w/ gaze points overlaid
-    - ref_gaze.mp4:             video of ref image w/ gaze points overlaid
-    - ref2world_mapping.mp4     video of reference image projected back into
+    - world_gaze.m4v:           world video w/ gaze points overlaid
+    - ref_gaze.m4v:             video of ref image w/ gaze points overlaid
+    - ref2world_mapping.m4v     video of reference image projected back into
                                 world video
     - gazeData_mapped.tsv:      gazeData mapped to both coordinate systems, the
                                 world and reference image
@@ -205,11 +205,11 @@ def processRecording(gazeData=None, worldCameraVid=None, referenceImage=None, ou
 
     Output files
     ------------
-    world_gaze.mp4 : video
+    world_gaze.m4v : video
         world video with original gaze points overlaid
-    ref_gaze.mp4 : video
+    ref_gaze.m4v : video
          ref image with mapped gaze points overlaid
-    ref2world_mapping.mp4 : video
+    ref2world_mapping.m4v : video
         world video with reference image projected and inserted into it.
     gazeData_mapped.tsv :  data file
         gazeData represented in both coordinate systems, the world and
