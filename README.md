@@ -1,4 +1,4 @@
-[![License](https://img.shields.io/badge/License-BSD%203--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause) [![Build Status](https://travis-ci.com/jeffmacinnes/mobileGazeMapping.svg?branch=master)](https://travis-ci.com/jeffmacinnes/mobileGazeMapping)
+[![License](https://img.shields.io/badge/License-BSD%203--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause) [![Build Status](https://travis-ci.com/jeffmacinnes/mobileGazeMapping.svg?branch=master)](https://travis-ci.com/jeffmacinnes/mobileGazeMapping) ![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.1494278.svg)
 
 # Mobile Gaze-Mapping
 
