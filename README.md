@@ -1,4 +1,4 @@
-[![License](https://img.shields.io/badge/License-BSD%203--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause) [![Build Status](https://travis-ci.com/jeffmacinnes/mobileGazeMapping.svg?branch=master)](https://travis-ci.com/jeffmacinnes/mobileGazeMapping) [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.1494278.svg)](https://doi.org/10.5281/zenodo.1494278)
+[![License](https://img.shields.io/badge/License-BSD%203--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause) [![Build Status](https://travis-ci.com/jeffmacinnes/mobileGazeMapping.svg?branch=master)](https://travis-ci.com/jeffmacinnes/mobileGazeMapping) [![DOI](http://joss.theoj.org/papers/10.21105/joss.00984/status.svg)](https://doi.org/10.21105/joss.00984) [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.1494278.svg)](https://doi.org/10.5281/zenodo.1494278) 
 
 
 # Mobile Gaze-Mapping
@@ -123,6 +123,30 @@ It should take ~1min to complete. Afterwards you will find all of the output fil
     ├── referenceImage.jpg
     └── worldCamera.mp4
 ```
+
+# Citing
+If you use this code in your work, you can cite the JOSS article at [![DOI](http://joss.theoj.org/papers/10.21105/joss.00984/status.svg)](https://doi.org/10.21105/joss.00984) 
+
+*MacInnes et al., (2018). Mobile Gaze Mapping: A Python package for mapping mobile gaze data to a fixed target stimulus. Journal of Open Source Software, 3(31), 984, https://doi.org/10.21105/joss.00984*
+
+### bibTex
+
+```
+@article{mobileGazeMapping2018,
+  doi = {10.21105/joss.00984},
+  url = {https://doi.org/10.21105/joss.00984},
+  year  = {2018},
+  month = {Nov},
+  publisher = {The Open Journal},
+  volume = {3},
+  number = {31},
+  pages = {984},
+  author = {Jeff J MacInnes and Shariq Iqbal and John Pearson and Elizabeth N Johnson},
+  title = {Mobile Gaze Mapping: A Python Package for Mapping Mobile Gaze Data to a Fixed Target Stimulus},
+  journal = {The Journal of Open Source Software}
+}
+```
+
 
 ### referenceImage.jpg copyright:
 Jeff Sonhouse, *Decompositioning*, 2010. Mixed media on canvas. 82 x 76 1/4 inches (208.3 x 193.7 cm). Collection of the Nasher Museum. Museum purchase, 2010.15.1. © Jeff Sonhouse.
